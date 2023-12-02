@@ -1,0 +1,51 @@
+﻿<!-- recieve models.student from project model -->
+@model IEnumerable<BasicASPTutorial.Models.Student>;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- if no any data show alert-->
+@if(Model.Count()==null || Model.Count() == 0)
+{
+    <div class="alert alert-secondary text text-center">Data is Empy</div>
+    return;
+}
+
+<h2 class="text-center my-xl-5 text-uppercase font-weight-bolder">score of student in major of Computer</h2>
+
+<table class="table table-dark border-5">
+    <thead>
+        <tr>
+            <th class="text-center text-uppercase">ID</th>
+            <th class="text-center text-uppercase">Fullname</th>
+            <th class="text-center text-uppercase">totalScore</th>
+            <th class="text-center text-uppercase">Edit</th>
+            <th class="text-center text-uppercase">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Loop thourght all data-->
+        @foreach(var student in Model)
+        {
+        <tr>
+                <td class="text-center"> @student.Id</td>
+                <td class="text-center">@student.Name</td>
+                <td class="text-center">@student.Score</td>
+                <td class="text-center">
+                    <a class="btn btn-warning" 
+                    asp-controller="Student"
+                    asp-action="Edit"
+                    asp-route-id="@student.Id">EDIT</a></td>
+                <td class="text-center">
+                    <a class="btn btn-danger" 
+                    asp-controller="Student"
+                    asp-action="Delete"
+                    asp-route-id="@student.Id"
+                    onclick="return confirm('are u sure?\nwant to delete @student.Name ?')">DELETE</a></td>
+        </tr>
+         }
+    </tbody>
+
+
+</table>
